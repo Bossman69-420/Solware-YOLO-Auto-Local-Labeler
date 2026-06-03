@@ -111,3 +111,4 @@ Exports automatically save current boxes before downloading.
 - Ultralytics YOLO
 - Pillow
 - Plain HTML, CSS, and JavaScript
+https://github.com/user-attachments/assets/81d1adf0-9342-4e81-a99d-e25e41d4c128
