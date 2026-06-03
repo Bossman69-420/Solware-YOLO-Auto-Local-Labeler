@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Solware</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Solware</h1>
+          <p>Local YOLO pre-labeling and annotation export. Session-only workspace.</p>
+        </div>
+        <div class="actions">
+          <button id="exportYolo" class="button-secondary" type="button">Export YOLOv8</button>
+          <button id="exportCoco" class="button-secondary" type="button">Export COCO</button>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <label class="file file-action">
+          <span>Add images</span>
+          <small>JPG, PNG, WEBP, BMP</small>
+          <input id="imageUpload" type="file" accept=".jpg,.jpeg,.png,.webp,.bmp" multiple />
+        </label>
+        <label class="file file-action">
+          <span>Add model</span>
+          <small>YOLOv8 .pt</small>
+          <input id="modelUpload" type="file" accept=".pt" />
+        </label>
+        <label>
+          Confidence <span id="confValue">0.25</span>
+          <input id="confidence" type="range" min="0.01" max="0.99" step="0.01" value="0.25" />
+        </label>
+        <label>
+          Image size <span class="mini-help">Inference only. Export stays full resolution.</span>
+          <select id="imgsz">
+            <option>320</option>
+            <option>416</option>
+            <option>512</option>
+            <option selected>640</option>
+            <option>768</option>
+            <option>960</option>
+            <option>1024</option>
+            <option>1280</option>
+          </select>
+        </label>
+        <label>
+          Device
+          <select id="device">
+            <option value="cpu">CPU</option>
+            <option value="cuda">GPU</option>
+          </select>
+        </label>
+        <label>
+          Box text
+          <select id="labelDisplay">
+            <option value="none" selected>Boxes only</option>
+            <option value="compact">Compact labels</option>
+            <option value="full">Labels + confidence</option>
+          </select>
+        </label>
+        <button id="fitView" class="button-compact" type="button">Fit</button>
+        <button id="runInference" class="button-primary" type="button">Run labeling</button>
+      </section>
+
+      <section class="status">
+        <span id="statusText">Upload images to begin.</span>
+        <progress id="progress" value="0" max="1"></progress>
+      </section>
+
+      <section class="workspace">
+        <aside class="sidebar">
+          <div class="panel-title">Images</div>
+          <div id="imageList" class="image-list"></div>
+        </aside>
+
+        <section class="canvas-panel">
+          <canvas id="canvas"></canvas>
+        </section>
+
+        <aside class="sidebar right">
+          <div class="panel-title">Tools</div>
+          <div class="tool-toggles">
+            <button id="panTool" class="tool-toggle active" type="button" aria-pressed="true" title="Pan empty space with left mouse drag">Pan</button>
+            <button id="boxTool" class="tool-toggle active" type="button" aria-pressed="true" title="Select, edit, and draw boxes with left mouse">Boxes</button>
+          </div>
+          <div class="panel-title">Labels</div>
+          <div id="labels" class="labels"></div>
+          <button id="saveLabels" type="button">Save labels</button>
+          <div class="panel-title">Selected box</div>
+          <label>
+            Class
+            <select id="boxClass"></select>
+          </label>
+          <button id="deleteBox" class="button-danger" type="button">Delete box</button>
+          <button id="saveBoxes" type="button">Save image</button>
+          <button id="saveAllBoxes" class="button-primary soft" type="button">Save all</button>
+          <p class="hint">Left mouse follows the selected tools. Right mouse always draws a box. Mouse wheel zooms with crisp pixels. Hold Space or use middle mouse to pan anytime.</p>
+        </aside>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

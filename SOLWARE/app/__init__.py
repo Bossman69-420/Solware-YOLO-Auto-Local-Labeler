@@ -1,0 +1,1 @@
+"""Solware local annotation app."""
